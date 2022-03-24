@@ -48,6 +48,7 @@ _start:
     mov rdx, str_age_len
     syscall
 
+.Attempt:
     mov  al, SYS_READ
     mov dil, STDIN
     mov rsi, user_input
@@ -94,13 +95,15 @@ _start:
     mov rdx, str_halfaccess_len
     syscall
 
-    jmp .ExitProgram
+    jmp .Attempt
 
 .NoAccess:
     mov rsi, str_noaccess
     mov rdx, str_noaccess_len
     syscall
     
+    jmp .Attempt
+
 .ExitProgram: 
     mov rax, SYS_EXIT
     xor rdi, rdi                ; mov rdi, EXIT_SUCCESS
